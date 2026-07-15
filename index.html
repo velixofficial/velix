@@ -11,16 +11,31 @@ background:#f8fafc;
 color:#1e293b;
 }
 
-header {
+nav {
 background:#0f172a;
 color:white;
-padding:50px 20px;
-text-align:center;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
-.logo {
-font-size:42px;
-font-weight:bold;
+nav h2 {
+margin:0;
+}
+
+nav a {
+color:white;
+text-decoration:none;
+margin:8px;
+font-size:14px;
+}
+
+header {
+text-align:center;
+padding:60px 20px;
+background:#1e293b;
+color:white;
 }
 
 button {
@@ -39,11 +54,10 @@ text-align:center;
 
 .card {
 background:white;
-margin:20px auto;
 padding:25px;
-border-radius:15px;
+margin:15px auto;
 max-width:400px;
-box-shadow:0 5px 15px rgba(0,0,0,0.08);
+border-radius:15px;
 }
 
 footer {
@@ -58,10 +72,23 @@ text-align:center;
 
 <body>
 
-<header>
-<div class="logo">Velix</div>
+<nav>
+<h2>Velix</h2>
 
-<h2>Connecting People. Creating Opportunities.</h2>
+<div>
+<a href="#">Home</a>
+<a href="#">Services</a>
+<a href="#">Marketplace</a>
+<a href="#">Opportunities</a>
+<a href="#">About</a>
+</div>
+
+</nav>
+
+
+<header>
+
+<h1>Connecting People. Creating Opportunities.</h1>
 
 <p>
 A trusted platform to find services, discover opportunities, and grow.
@@ -104,4 +131,4 @@ A trusted platform to find services, discover opportunities, and grow.
 </footer>
 
 </body>
-  </html>
+</html>
