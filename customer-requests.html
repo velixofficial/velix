@@ -31,6 +31,11 @@ border:1px solid #ddd;
 padding:15px;
 margin:15px 0;
 border-radius:10px;
+text-align:left;
+}
+
+.request h3{
+text-align:center;
 }
 
 a{
@@ -48,18 +53,56 @@ font-weight:bold;
 
 <header>
 <h1>📩 Customer Requests</h1>
+<p>Requests from customers will appear here.</p>
 </header>
 
 <div class="card">
 
-<div class="request">
+<div class="request" id="requestDisplay">
+
 <h3>No customer requests yet</h3>
 <p>When customers contact you through Velix, their requests will appear here.</p>
+
 </div>
 
 <a href="provider-dashboard.html">⬅ Back to Dashboard</a>
 
 </div>
+
+<script>
+
+const customerName = localStorage.getItem("velixCustomerName");
+const customerPhone = localStorage.getItem("velixCustomerPhone");
+const requestedService = localStorage.getItem("velixRequestedService");
+const requestMessage = localStorage.getItem("velixRequestMessage");
+const requestLocation = localStorage.getItem("velixRequestLocation");
+
+if(customerName){
+
+document.getElementById("requestDisplay").innerHTML = `
+
+<h3>📩 New Customer Request</h3>
+
+<p><strong>Customer:</strong><br>
+${customerName}</p>
+
+<p><strong>Phone:</strong><br>
+${customerPhone || "Not provided"}</p>
+
+<p><strong>Service Needed:</strong><br>
+${requestedService || "Not provided"}</p>
+
+<p><strong>Message:</strong><br>
+${requestMessage || "Not provided"}</p>
+
+<p><strong>Location:</strong><br>
+${requestLocation || "Not provided"}</p>
+
+`;
+
+}
+
+</script>
 
 </body>
 </html>
