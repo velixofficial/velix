@@ -31,6 +31,11 @@ border:1px solid #ddd;
 padding:15px;
 margin:15px 0;
 border-radius:10px;
+text-align:left;
+}
+
+.service h3{
+text-align:center;
 }
 
 button{
@@ -40,6 +45,7 @@ padding:10px 20px;
 border:none;
 border-radius:8px;
 cursor:pointer;
+font-weight:bold;
 }
 
 a{
@@ -62,9 +68,11 @@ font-weight:bold;
 
 <div class="card">
 
-<div class="service">
+<div class="service" id="serviceDisplay">
+
 <h3>No services added yet</h3>
 <p>Your services will appear here after you add them.</p>
+
 </div>
 
 <button onclick="window.location.href='add-service.html'">
@@ -74,6 +82,34 @@ Add New Service
 <a href="provider-dashboard.html">⬅ Back to Dashboard</a>
 
 </div>
+
+<script>
+
+const serviceName = localStorage.getItem("velixServiceName");
+const serviceDescription = localStorage.getItem("velixServiceDescription");
+const serviceLocation = localStorage.getItem("velixServiceLocation");
+const servicePrice = localStorage.getItem("velixServicePrice");
+
+if(serviceName){
+
+document.getElementById("serviceDisplay").innerHTML = `
+
+<h3>🛠 ${serviceName}</h3>
+
+<p><strong>Description:</strong><br>
+${serviceDescription || "Not provided"}</p>
+
+<p><strong>Location:</strong><br>
+${serviceLocation || "Not provided"}</p>
+
+<p><strong>Price:</strong><br>
+₦${servicePrice || "Not provided"}</p>
+
+`;
+
+}
+
+</script>
 
 </body>
 </html>
