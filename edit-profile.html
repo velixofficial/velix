@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +34,7 @@ margin:10px 0;
 border:1px solid #ccc;
 border-radius:8px;
 font-size:16px;
+box-sizing:border-box;
 }
 
 button{
@@ -66,15 +68,15 @@ font-weight:bold;
 
 <div class="card">
 
-<input type="text" placeholder="Business Name">
+<input type="text" id="businessName" placeholder="Business Name">
 
-<input type="text" placeholder="Owner Name">
+<input type="text" id="ownerName" placeholder="Owner Name">
 
-<input type="tel" placeholder="Phone Number">
+<input type="tel" id="phone" placeholder="Phone Number">
 
-<input type="email" placeholder="Email Address">
+<input type="email" id="email" placeholder="Email Address">
 
-<input type="text" placeholder="Location">
+<input type="text" id="location" placeholder="Location">
 
 <br><br>
 
@@ -83,10 +85,30 @@ font-weight:bold;
 <a href="provider-profile.html">⬅ Back to My Profile</a>
 
 </div>
+
 <script>
+
 function saveProfile(){
-alert("✅ Profile saved successfully!\n\nYour information will be stored in the next version of Velix.");
+
+const businessName = document.getElementById("businessName").value;
+const ownerName = document.getElementById("ownerName").value;
+const phone = document.getElementById("phone").value;
+const email = document.getElementById("email").value;
+const location = document.getElementById("location").value;
+
+localStorage.setItem("velixBusinessName", businessName);
+localStorage.setItem("velixOwnerName", ownerName);
+localStorage.setItem("velixPhone", phone);
+localStorage.setItem("velixEmail", email);
+localStorage.setItem("velixLocation", location);
+
+alert("✅ Profile saved successfully!");
+
+window.location.href = "provider-profile.html";
+
 }
+
 </script>
+
 </body>
 </html>
