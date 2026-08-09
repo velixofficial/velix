@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Customer Request - Velix</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f8fafc;
+margin:0;
+text-align:center;
+}
+
+header{
+background:#0f172a;
+color:white;
+padding:40px;
+}
+
+.card{
+background:white;
+max-width:600px;
+margin:20px auto;
+padding:20px;
+border-radius:15px;
+box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+input, textarea{
+width:90%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+box-sizing:border-box;
+}
+
+textarea{
+height:120px;
+resize:none;
+}
+
+button{
+padding:12px 25px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+a{
+display:block;
+margin-top:20px;
+text-decoration:none;
+color:#2563eb;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>📩 Customer Request</h1>
+<p>Send a request to a Velix provider.</p>
+</header>
+
+<div class="card">
+
+<input type="text" id="customerName" placeholder="Your Name">
+
+<input type="tel" id="customerPhone" placeholder="Phone Number">
+
+<input type="text" id="requestedService" placeholder="Service Needed">
+
+<textarea id="requestMessage" placeholder="Describe what you need"></textarea>
+
+<input type="text" id="requestLocation" placeholder="Your Location">
+
+<br><br>
+
+<button onclick="saveRequest()">📩 Send Request</button>
+
+<a href="customer-requests.html">⬅ Back to Customer Requests</a>
+
+</div>
+
+<script>
+
+function saveRequest(){
+
+const customerName = document.getElementById("customerName").value;
+const customerPhone = document.getElementById("customerPhone").value;
+const requestedService = document.getElementById("requestedService").value;
+const requestMessage = document.getElementById("requestMessage").value;
+const requestLocation = document.getElementById("requestLocation").value;
+
+localStorage.setItem("velixCustomerName", customerName);
+localStorage.setItem("velixCustomerPhone", customerPhone);
+localStorage.setItem("velixRequestedService", requestedService);
+localStorage.setItem("velixRequestMessage", requestMessage);
+localStorage.setItem("velixRequestLocation", requestLocation);
+
+alert("✅ Request sent successfully!");
+
+window.location.href = "customer-requests.html";
+
+}
+
+</script>
+
+</body>
+</html>
