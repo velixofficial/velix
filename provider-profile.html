@@ -66,27 +66,27 @@ font-weight:bold;
 
 <div class="info">
 <strong>Business Name:</strong><br>
-Not set
+<span id="businessName">Not set</span>
 </div>
 
 <div class="info">
 <strong>Owner:</strong><br>
-Not set
+<span id="ownerName">Not set</span>
 </div>
 
 <div class="info">
 <strong>Phone:</strong><br>
-Not set
+<span id="phone">Not set</span>
 </div>
 
 <div class="info">
 <strong>Email:</strong><br>
-Not set
+<span id="email">Not set</span>
 </div>
 
 <div class="info">
 <strong>Location:</strong><br>
-Not set
+<span id="location">Not set</span>
 </div>
 
 <a class="button" href="edit-profile.html">✏ Edit Profile</a>
@@ -94,6 +94,25 @@ Not set
 <a class="back" href="provider-dashboard.html">⬅ Back to Dashboard</a>
 
 </div>
+
+<script>
+
+document.getElementById("businessName").textContent =
+localStorage.getItem("velixBusinessName") || "Not set";
+
+document.getElementById("ownerName").textContent =
+localStorage.getItem("velixOwnerName") || "Not set";
+
+document.getElementById("phone").textContent =
+localStorage.getItem("velixPhone") || "Not set";
+
+document.getElementById("email").textContent =
+localStorage.getItem("velixEmail") || "Not set";
+
+document.getElementById("location").textContent =
+localStorage.getItem("velixLocation") || "Not set";
+
+</script>
 
 </body>
 </html>
