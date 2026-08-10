@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Notification Settings - Velix</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f8fafc;
+margin:0;
+text-align:center;
+}
+
+header{
+background:#0f172a;
+color:white;
+padding:40px;
+}
+
+.card{
+background:white;
+max-width:600px;
+margin:20px auto;
+padding:20px;
+border-radius:15px;
+box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+.option{
+display:flex;
+align-items:center;
+justify-content:space-between;
+border:1px solid #ddd;
+padding:15px;
+margin:15px 0;
+border-radius:10px;
+text-align:left;
+}
+
+.option input{
+width:20px;
+height:20px;
+}
+
+button{
+padding:12px 25px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+a{
+display:block;
+margin-top:20px;
+text-decoration:none;
+color:#2563eb;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>🔔 Notification Settings</h1>
+<p>Choose the notifications you want to receive.</p>
+</header>
+
+<div class="card">
+
+<div class="option">
+<span>📩 New Customer Requests</span>
+<input type="checkbox" id="requestNotifications">
+</div>
+
+<div class="option">
+<span>⭐ New Reviews</span>
+<input type="checkbox" id="reviewNotifications">
+</div>
+
+<div class="option">
+<span>🔔 General Notifications</span>
+<input type="checkbox" id="generalNotifications">
+</div>
+
+<br>
+
+<button onclick="saveNotifications()">
+💾 Save Settings
+</button>
+
+<a href="settings.html">⬅ Back to Settings</a>
+
+</div>
+
+<script>
+
+const requestNotifications =
+document.getElementById("requestNotifications");
+
+const reviewNotifications =
+document.getElementById("reviewNotifications");
+
+const generalNotifications =
+document.getElementById("generalNotifications");
+
+requestNotifications.checked =
+localStorage.getItem("velixRequestNotifications") === "true";
+
+reviewNotifications.checked =
+localStorage.getItem("velixReviewNotifications") === "true";
+
+generalNotifications.checked =
+localStorage.getItem("velixGeneralNotifications") === "true";
+
+
+function saveNotifications(){
+
+localStorage.setItem(
+"velixRequestNotifications",
+requestNotifications.checked
+);
+
+localStorage.setItem(
+"velixReviewNotifications",
+reviewNotifications.checked
+);
+
+localStorage.setItem(
+"velixGeneralNotifications",
+generalNotifications.checked
+);
+
+alert("✅ Notification settings saved successfully!");
+
+}
+
+</script>
+
+</body>
+</html>
