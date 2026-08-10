@@ -31,6 +31,16 @@ border:1px solid #ddd;
 padding:15px;
 margin:15px 0;
 border-radius:10px;
+text-align:left;
+}
+
+.review h3{
+text-align:center;
+}
+
+.stars{
+text-align:center;
+font-size:22px;
 }
 
 a{
@@ -48,18 +58,66 @@ font-weight:bold;
 
 <header>
 <h1>⭐ Reviews</h1>
+<p>Customer reviews and ratings.</p>
 </header>
 
 <div class="card">
 
-<div class="review">
+<div class="review" id="reviewDisplay">
+
 <h3>No reviews yet</h3>
 <p>Customer reviews and ratings will appear here.</p>
+
 </div>
 
 <a href="provider-dashboard.html">⬅ Back to Dashboard</a>
 
 </div>
+
+<script>
+
+const customerName =
+localStorage.getItem("velixReviewCustomer");
+
+const providerName =
+localStorage.getItem("velixReviewProvider");
+
+const rating =
+localStorage.getItem("velixReviewRating");
+
+const reviewMessage =
+localStorage.getItem("velixReviewMessage");
+
+if(customerName){
+
+let stars = "";
+
+for(let i = 0; i < Number(rating); i++){
+stars += "⭐";
+}
+
+document.getElementById("reviewDisplay").innerHTML = `
+
+<h3>⭐ Customer Review</h3>
+
+<p><strong>Customer:</strong><br>
+${customerName}</p>
+
+<p><strong>Provider:</strong><br>
+${providerName || "Not provided"}</p>
+
+<div class="stars">
+${stars}
+</div>
+
+<p><strong>Review:</strong><br>
+${reviewMessage || "No review provided"}</p>
+
+`;
+
+}
+
+</script>
 
 </body>
 </html>
