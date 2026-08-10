@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Leave a Review - Velix</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f8fafc;
+margin:0;
+text-align:center;
+}
+
+header{
+background:#0f172a;
+color:white;
+padding:40px;
+}
+
+.card{
+background:white;
+max-width:600px;
+margin:20px auto;
+padding:20px;
+border-radius:15px;
+box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+input, textarea, select{
+width:90%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+box-sizing:border-box;
+}
+
+textarea{
+height:120px;
+resize:none;
+}
+
+button{
+padding:12px 25px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+a{
+display:block;
+margin-top:20px;
+text-decoration:none;
+color:#2563eb;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>⭐ Leave a Review</h1>
+<p>Tell us about your experience with a Velix provider.</p>
+</header>
+
+<div class="card">
+
+<input type="text" id="customerName" placeholder="Your Name">
+
+<input type="text" id="providerName" placeholder="Provider Name">
+
+<select id="rating">
+<option value="">Select Rating</option>
+<option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+<option value="4">⭐⭐⭐⭐ 4 Stars</option>
+<option value="3">⭐⭐⭐ 3 Stars</option>
+<option value="2">⭐⭐ 2 Stars</option>
+<option value="1">⭐ 1 Star</option>
+</select>
+
+<textarea id="reviewMessage" placeholder="Write your review"></textarea>
+
+<br><br>
+
+<button onclick="saveReview()">⭐ Submit Review</button>
+
+<a href="reviews.html">⬅ Back to Reviews</a>
+
+</div>
+
+<script>
+
+function saveReview(){
+
+const customerName =
+document.getElementById("customerName").value.trim();
+
+const providerName =
+document.getElementById("providerName").value.trim();
+
+const rating =
+document.getElementById("rating").value;
+
+const reviewMessage =
+document.getElementById("reviewMessage").value.trim();
+
+if(!customerName || !providerName || !rating || !reviewMessage){
+
+alert("⚠️ Please complete all fields before submitting.");
+
+return;
+
+}
+
+localStorage.setItem("velixReviewCustomer", customerName);
+localStorage.setItem("velixReviewProvider", providerName);
+localStorage.setItem("velixReviewRating", rating);
+localStorage.setItem("velixReviewMessage", reviewMessage);
+
+alert("✅ Review submitted successfully!");
+
+window.location.href = "reviews.html";
+
+}
+
+</script>
+
+</body>
+</html>
