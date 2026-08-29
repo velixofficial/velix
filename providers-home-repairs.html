@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,17 +17,37 @@ max-width:700px;
 margin:auto;
 }
 
+header{
+background:#0f172a;
+color:white;
+padding:30px 20px;
+border-radius:15px;
+text-align:center;
+}
+
 .card{
 background:white;
 padding:20px;
 margin-top:20px;
 border-radius:15px;
 box-shadow:0 3px 10px rgba(0,0,0,0.1);
-text-align:center;
 }
 
-h1{
+.provider{
+border:1px solid #ddd;
+padding:20px;
+margin-top:15px;
+border-radius:12px;
+text-align:left;
+}
+
+.provider h2{
+margin-top:0;
 color:#0f172a;
+}
+
+.info{
+margin:8px 0;
 }
 
 button{
@@ -34,42 +55,91 @@ padding:12px 20px;
 background:#2563eb;
 color:white;
 border:none;
-border-radius:10px;
+border-radius:8px;
 font-size:16px;
 cursor:pointer;
+}
+
+.secondary{
+background:#e2e8f0;
+color:#0f172a;
 }
 
 a{
 text-decoration:none;
 }
+
+.back{
+display:block;
+text-align:center;
+margin-top:20px;
+color:#2563eb;
+font-weight:bold;
+}
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
+<header>
+<h1>🔨 Home Repairs Providers</h1>
+<p>Find professionals who can help with your home repair needs.</p>
+</header>
+
+
 <div class="card">
 
-<h1>🔨 Home Repairs Providers</h1>
+<h2>Available Providers</h2>
 
-<p>
-No service providers have registered in this category yet.
+
+<div class="provider">
+
+<h2>🏠 Velix Home Repairs Provider</h2>
+
+<p class="info">
+🔧 <strong>Services:</strong> General Home Repairs
+</p>
+
+<p class="info">
+📍 <strong>Location:</strong> Available in your area
+</p>
+
+<p class="info">
+⭐ <strong>Rating:</strong> New Provider
 </p>
 
 <p>
-Once providers register, they will appear here.
-</p>
-
-<a href="register-provider.html">
-<button>Become the First Provider</button>
+<a href="provider-profile.html">
+<button>View Profile</button>
 </a>
+
+<a href="add-request.html">
+<button class="secondary">📩 Request Service</button>
+</a>
+</p>
 
 </div>
 
-<p style="text-align:center;">
-<a href="home-repairs.html">⬅ Back to Home Repairs</a>
+
+<div class="provider">
+
+<h2>🔧 More Providers Coming Soon</h2>
+
+<p>
+As more professionals join Velix, their profiles will appear here.
 </p>
+
+</div>
+
+</div>
+
+
+<a class="back" href="home-repairs.html">
+⬅ Back to Home Repairs
+</a>
 
 </div>
 
