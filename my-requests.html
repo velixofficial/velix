@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>My Requests - Velix</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f8fafc;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+.header{
+background:#0f172a;
+color:white;
+padding:30px 20px;
+border-radius:15px;
+text-align:center;
+}
+
+.card{
+background:white;
+padding:25px;
+margin-top:20px;
+border-radius:15px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.request{
+border:1px solid #cbd5e1;
+padding:20px;
+border-radius:12px;
+margin-top:15px;
+background:#f8fafc;
+}
+
+.request h2{
+margin-top:0;
+color:#0f172a;
+}
+
+.info{
+margin:12px 0;
+}
+
+.status{
+display:inline-block;
+padding:8px 14px;
+border-radius:20px;
+font-weight:bold;
+}
+
+.pending{
+background:#fef3c7;
+color:#92400e;
+}
+
+.accepted{
+background:#dcfce7;
+color:#166534;
+}
+
+.declined{
+background:#fee2e2;
+color:#991b1b;
+}
+
+.empty{
+text-align:center;
+padding:30px 10px;
+color:#64748b;
+}
+
+button{
+width:100%;
+padding:13px;
+margin-top:15px;
+background:#e2e8f0;
+color:#0f172a;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>📋 My Requests</h1>
+
+<p>Track your service requests on Velix.</p>
+
+</div>
+
+
+<div class="card">
+
+<div id="requests"></div>
+
+</div>
+
+
+<button onclick="window.location.href='start.html'">
+⬅ Back to Velix
+</button>
+
+</div>
+
+
+<script>
+
+function loadRequest(){
+
+const savedRequest =
+localStorage.getItem("velixCustomerRequest");
+
+const requestsDiv =
+document.getElementById("requests");
+
+
+if(!savedRequest){
+
+requestsDiv.innerHTML = `
+
+<div class="empty">
+
+<h2>No Requests Yet</h2>
+
+<p>
+Your service requests will appear here.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+const request =
+JSON.parse(savedRequest);
+
+
+let statusClass = "pending";
+
+
+if(request.status === "Accepted"){
+statusClass = "accepted";
+}
+
+
+if(request.status === "Declined"){
+statusClass = "declined";
+}
+
+
+requestsDiv.innerHTML = `
+
+<h2>Service Request</h2>
+
+<div class="request">
+
+<p class="info">
+👷 <strong>Provider:</strong><br>
+${request.provider}
+</p>
+
+<p class="info">
+🔧 <strong>Service:</strong><br>
+${request.service}
+</p>
+
+<p class="info">
+📝 <strong>Request:</strong><br>
+${request.description}
+</p>
+
+<p class="info">
+📍 <strong>Location:</strong><br>
+${request.location}
+</p>
+
+<p class="info">
+📅 <strong>Date:</strong><br>
+${request.date}
+</p>
+
+<p class="info">
+
+<strong>Status:</strong><br><br>
+
+<span class="status ${statusClass}">
+${request.status}
+</span>
+
+</p>
+
+</div>
+
+`;
+
+}
+
+
+loadRequest();
+
+</script>
+
+</body>
+
+</html>
