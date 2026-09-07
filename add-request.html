@@ -209,9 +209,25 @@ function sendRequest(event){
 
 event.preventDefault();
 
-alert(
-"Your request has been sent to Velix Home Repairs Provider."
+const request = {
+    provider: "Velix Home Repairs Provider",
+    service: document.getElementById("service").value,
+    name: document.getElementById("name").value,
+    phone: document.getElementById("phone").value,
+    description: document.getElementById("description").value,
+    location: document.getElementById("location").value,
+    status: "Pending",
+    date: new Date().toLocaleString()
+};
+
+localStorage.setItem(
+    "velixCustomerRequest",
+    JSON.stringify(request)
 );
+
+alert("Your request has been sent to Velix Home Repairs Provider.");
+
+window.location.href = "customer-requests.html";
 
 }
 
