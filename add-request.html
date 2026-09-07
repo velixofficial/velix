@@ -1,114 +1,217 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>Customer Request - Velix</title>
 
 <style>
+
 body{
 font-family:Arial,sans-serif;
 background:#f8fafc;
 margin:0;
-text-align:center;
+padding:20px;
 }
 
-header{
+.container{
+max-width:700px;
+margin:auto;
+}
+
+.header{
 background:#0f172a;
 color:white;
-padding:40px;
+padding:30px 20px;
+border-radius:15px;
+text-align:center;
 }
 
 .card{
 background:white;
-max-width:600px;
-margin:20px auto;
-padding:20px;
+margin-top:20px;
+padding:25px;
 border-radius:15px;
-box-shadow:0 3px 10px rgba(0,0,0,.1);
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
-input, textarea{
-width:90%;
-padding:12px;
-margin:10px 0;
-border:1px solid #ccc;
-border-radius:8px;
-font-size:16px;
+.selected{
+background:#eff6ff;
+border:1px solid #bfdbfe;
+padding:15px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.selected h3{
+margin-top:0;
+color:#1d4ed8;
+}
+
+label{
+display:block;
+margin-top:15px;
+font-weight:bold;
+color:#334155;
+}
+
+input,
+textarea{
+width:100%;
 box-sizing:border-box;
+padding:12px;
+margin-top:7px;
+border:1px solid #cbd5e1;
+border-radius:8px;
+font-size:15px;
 }
 
 textarea{
 height:120px;
-resize:none;
+resize:vertical;
 }
 
 button{
-padding:12px 25px;
+width:100%;
+padding:13px;
+margin-top:20px;
 background:#2563eb;
 color:white;
 border:none;
 border-radius:8px;
 font-size:16px;
-font-weight:bold;
 cursor:pointer;
 }
 
-a{
+.secondary{
+background:#e2e8f0;
+color:#0f172a;
+}
+
+.back{
 display:block;
+text-align:center;
 margin-top:20px;
-text-decoration:none;
 color:#2563eb;
 font-weight:bold;
+text-decoration:none;
 }
+
 </style>
 
 </head>
 
 <body>
 
-<header>
+<div class="container">
+
+<div class="header">
+
 <h1>📩 Customer Request</h1>
-<p>Send a request to a Velix provider.</p>
-</header>
 
-<div class="card">
-
-<input type="text" id="customerName" placeholder="Your Name">
-
-<input type="tel" id="customerPhone" placeholder="Phone Number">
-
-<input type="text" id="requestedService" placeholder="Service Needed">
-
-<textarea id="requestMessage" placeholder="Describe what you need"></textarea>
-
-<input type="text" id="requestLocation" placeholder="Your Location">
-
-<br><br>
-
-<button onclick="saveRequest()">📩 Send Request</button>
-
-<a href="customer-requests.html">⬅ Back to Customer Requests</a>
+<p>Request a service from a Velix provider.</p>
 
 </div>
 
+
+<div class="card">
+
+<div class="selected">
+
+<h3>Selected Provider</h3>
+
+<p>
+👤 <strong>Provider:</strong><br>
+Velix Home Repairs Provider
+</p>
+
+<p>
+🔧 <strong>Service:</strong><br>
+General Home Repairs
+</p>
+
+</div>
+
+
+<form onsubmit="sendRequest(event)">
+
+<label>Your Name</label>
+
+<input
+type="text"
+id="name"
+placeholder="Enter your full name"
+required
+>
+
+
+<label>Phone Number</label>
+
+<input
+type="tel"
+id="phone"
+placeholder="Enter your phone number"
+required
+>
+
+
+<label>Service Needed</label>
+
+<input
+type="text"
+id="service"
+value="General Home Repairs"
+required
+>
+
+
+<label>Describe What You Need</label>
+
+<textarea
+id="description"
+placeholder="Tell the provider what you need help with..."
+required
+></textarea>
+
+
+<label>Your Location</label>
+
+<input
+type="text"
+id="location"
+placeholder="Enter your location"
+required
+>
+
+
+<button type="submit">
+📩 Send Request
+</button>
+
+</form>
+
+
+<a href="provider-profile.html">
+
+<button class="secondary">
+⬅ Back to Provider Profile
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+
 <script>
 
-function saveRequest(){
+function sendRequest(event){
 
-const customerName = document.getElementById("customerName").value;
-const customerPhone = document.getElementById("customerPhone").value;
-const requestedService = document.getElementById("requestedService").value;
-const requestMessage = document.getElementById("requestMessage").value;
-const requestLocation = document.getElementById("requestLocation").value;
+event.preventDefault();
 
-localStorage.setItem("velixCustomerName", customerName);
-localStorage.setItem("velixCustomerPhone", customerPhone);
-localStorage.setItem("velixRequestedService", requestedService);
-localStorage.setItem("velixRequestMessage", requestMessage);
-localStorage.setItem("velixRequestLocation", requestLocation);
-
-alert("✅ Request sent successfully!");
-
-window.location.href = "customer-requests.html";
+alert(
+"Your request has been sent to Velix Home Repairs Provider."
+);
 
 }
 
