@@ -1,93 +1,129 @@
+
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>Customer Requests - Velix</title>
 
 <style>
+
 body{
 font-family:Arial,sans-serif;
 background:#f8fafc;
 margin:0;
-text-align:center;
+padding:20px;
 }
 
-header{
+.container{
+max-width:700px;
+margin:auto;
+}
+
+.header{
 background:#0f172a;
 color:white;
-padding:40px;
+padding:30px 20px;
+border-radius:15px;
+text-align:center;
 }
 
 .card{
 background:white;
-max-width:600px;
-margin:20px auto;
-padding:20px;
+padding:25px;
+margin-top:20px;
 border-radius:15px;
-box-shadow:0 3px 10px rgba(0,0,0,.1);
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
 .request{
-border:1px solid #ddd;
-padding:15px;
-margin:15px 0;
-border-radius:10px;
-text-align:left;
+border:1px solid #cbd5e1;
+padding:20px;
+border-radius:12px;
+margin-top:15px;
+background:#f8fafc;
 }
 
-.request h3{
-text-align:center;
+.request h2{
+margin-top:0;
+color:#0f172a;
+}
+
+.info{
+margin:10px 0;
+}
+
+.status{
+display:inline-block;
+padding:7px 12px;
+border-radius:20px;
+background:#fef3c7;
+color:#92400e;
+font-weight:bold;
 }
 
 button{
-padding:12px 20px;
+width:100%;
+padding:13px;
+margin-top:10px;
 border:none;
 border-radius:8px;
-color:white;
-font-weight:bold;
+font-size:16px;
 cursor:pointer;
-margin:5px;
 }
 
 .accept{
 background:#16a34a;
+color:white;
 }
 
 .decline{
 background:#dc2626;
+color:white;
+}
+
+.dashboard{
+background:#e2e8f0;
+color:#0f172a;
 }
 
 .back{
 display:block;
+text-align:center;
 margin-top:20px;
-text-decoration:none;
 color:#2563eb;
 font-weight:bold;
+text-decoration:none;
 }
 
-#requestStatus{
+.empty{
 text-align:center;
-font-weight:bold;
-margin-top:15px;
+padding:30px 10px;
+color:#64748b;
 }
+
 </style>
 
 </head>
 
 <body>
 
-<header>
+<div class="container">
+
+<div class="header">
+
 <h1>📩 Customer Requests</h1>
+
 <p>Requests from customers will appear here.</p>
-</header>
+
+</div>
+
 
 <div class="card">
 
-<div class="request" id="requestDisplay">
-
-<h3>No customer requests yet</h3>
-<p>When customers contact you through Velix, their requests will appear here.</p>
+<div id="requests"></div>
 
 </div>
+
 
 <a class="back" href="provider-dashboard.html">
 ⬅ Back to Dashboard
@@ -95,56 +131,87 @@ margin-top:15px;
 
 </div>
 
+
 <script>
 
-const customerName = localStorage.getItem("velixCustomerName");
-const customerPhone = localStorage.getItem("velixCustomerPhone");
-const requestedService = localStorage.getItem("velixRequestedService");
-const requestMessage = localStorage.getItem("velixRequestMessage");
-const requestLocation = localStorage.getItem("velixRequestLocation");
+function loadRequests(){
 
-function acceptRequest(){
+const savedRequest = localStorage.getItem("velixCustomerRequest");
 
-localStorage.setItem("velixRequestStatus","Accepted");
+const requestsDiv = document.getElementById("requests");
 
-document.getElementById("requestStatus").innerHTML =
-"✅ Request Accepted";
+
+if(!savedRequest){
+
+requestsDiv.innerHTML = `
+<div class="empty">
+
+<h2>No customer requests yet</h2>
+
+<p>
+When customers contact you through Velix,
+their requests will appear here.
+</p>
+
+</div>
+`;
+
+return;
 
 }
 
-function declineRequest(){
 
-localStorage.setItem("velixRequestStatus","Declined");
+const request = JSON.parse(savedRequest);
 
-document.getElementById("requestStatus").innerHTML =
-"❌ Request Declined";
 
-}
+requestsDiv.innerHTML = `
 
-if(customerName){
+<h2>New Service Request</h2>
 
-const savedStatus = localStorage.getItem("velixRequestStatus");
+<div class="request">
 
-document.getElementById("requestDisplay").innerHTML = `
+<h2>📩 Customer Request</h2>
 
-<h3>📩 New Customer Request</h3>
+<p class="info">
+👤 <strong>Customer:</strong><br>
+${request.name}
+</p>
 
-<p><strong>Customer:</strong><br>
-${customerName}</p>
+<p class="info">
+📞 <strong>Phone:</strong><br>
+${request.phone}
+</p>
 
-<p><strong>Phone:</strong><br>
-${customerPhone || "Not provided"}</p>
+<p class="info">
+🔧 <strong>Service:</strong><br>
+${request.service}
+</p>
 
-<p><strong>Service Needed:</strong><br>
-${requestedService || "Not provided"}</p>
+<p class="info">
+📝 <strong>What they need:</strong><br>
+${request.description}
+</p>
 
-<p><strong>Message:</strong><br>
-${requestMessage || "Not provided"}</p>
+<p class="info">
+📍 <strong>Location:</strong><br>
+${request.location}
+</p>
 
-<p><strong>Location:</strong><br>
-${requestLocation || "Not provided"}</p>
+<p class="info">
+👷 <strong>Provider:</strong><br>
+${request.provider}
+</p>
 
-<div style="text-align:center;">
+<p class="info">
+📅 <strong>Request Date:</strong><br>
+${request.date}
+</p>
+
+<p>
+<span class="status">
+${request.status}
+</span>
+</p>
 
 <button class="accept" onclick="acceptRequest()">
 ✅ Accept Request
@@ -154,15 +221,64 @@ ${requestLocation || "Not provided"}</p>
 ❌ Decline Request
 </button>
 
-<p id="requestStatus">
-${savedStatus ? savedStatus : ""}
-</p>
-
 </div>
 
 `;
 
 }
+
+
+function acceptRequest(){
+
+const savedRequest =
+localStorage.getItem("velixCustomerRequest");
+
+if(savedRequest){
+
+const request = JSON.parse(savedRequest);
+
+request.status = "Accepted";
+
+localStorage.setItem(
+"velixCustomerRequest",
+JSON.stringify(request)
+);
+
+}
+
+alert("Request accepted successfully.");
+
+loadRequests();
+
+}
+
+
+function declineRequest(){
+
+const savedRequest =
+localStorage.getItem("velixCustomerRequest");
+
+if(savedRequest){
+
+const request = JSON.parse(savedRequest);
+
+request.status = "Declined";
+
+localStorage.setItem(
+"velixCustomerRequest",
+JSON.stringify(request)
+);
+
+}
+
+alert("Request declined.");
+
+loadRequests();
+
+}
+
+
+loadRequests();
 
 </script>
 
