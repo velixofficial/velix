@@ -1,118 +1,164 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>My Profile - Velix</title>
+
+<title>Provider Profile - Velix</title>
 
 <style>
+
 body{
 font-family:Arial,sans-serif;
 background:#f8fafc;
 margin:0;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+.header{
+background:#0f172a;
+color:white;
+padding:30px 20px;
+border-radius:15px;
 text-align:center;
 }
 
-header{
-background:#0f172a;
-color:white;
-padding:40px;
+.profile{
+background:white;
+margin-top:20px;
+padding:25px;
+border-radius:15px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
-.card{
-background:white;
-max-width:600px;
-margin:20px auto;
-padding:20px;
-border-radius:15px;
-box-shadow:0 3px 10px rgba(0,0,0,.1);
+.avatar{
+width:90px;
+height:90px;
+border-radius:50%;
+background:#2563eb;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:40px;
+margin:0 auto 15px;
+}
+
+h2{
+text-align:center;
+color:#0f172a;
 }
 
 .info{
-text-align:left;
 margin:15px 0;
-padding:10px;
-border-bottom:1px solid #ddd;
+padding:12px;
+background:#f1f5f9;
+border-radius:8px;
 }
 
-.button{
-display:inline-block;
-margin-top:20px;
-padding:12px 25px;
+button{
+padding:13px 20px;
 background:#2563eb;
 color:white;
-text-decoration:none;
+border:none;
 border-radius:8px;
-font-weight:bold;
+font-size:16px;
+cursor:pointer;
+width:100%;
+margin-top:10px;
+}
+
+.secondary{
+background:#e2e8f0;
+color:#0f172a;
+}
+
+a{
+text-decoration:none;
 }
 
 .back{
 display:block;
+text-align:center;
 margin-top:20px;
-text-decoration:none;
 color:#2563eb;
 font-weight:bold;
 }
+
 </style>
 
 </head>
 
 <body>
 
-<header>
-<h1>👤 My Profile</h1>
-<p>Your provider information.</p>
-</header>
+<div class="container">
 
-<div class="card">
+<div class="header">
 
-<div class="info">
-<strong>Business Name:</strong><br>
-<span id="businessName">Not set</span>
+<h1>👤 Provider Profile</h1>
+
+<p>Velix Service Provider</p>
+
 </div>
 
-<div class="info">
-<strong>Owner:</strong><br>
-<span id="ownerName">Not set</span>
+
+<div class="profile">
+
+<div class="avatar">
+🔨
 </div>
 
-<div class="info">
-<strong>Phone:</strong><br>
-<span id="phone">Not set</span>
-</div>
+<h2>Velix Home Repairs Provider</h2>
 
 <div class="info">
-<strong>Email:</strong><br>
-<span id="email">Not set</span>
+🔧 <strong>Service:</strong><br>
+General Home Repairs
 </div>
 
 <div class="info">
-<strong>Location:</strong><br>
-<span id="location">Not set</span>
+📍 <strong>Location:</strong><br>
+Available in your area
 </div>
 
-<a class="button" href="edit-profile.html">✏ Edit Profile</a>
+<div class="info">
+⭐ <strong>Rating:</strong><br>
+New Provider
+</div>
 
-<a class="back" href="provider-dashboard.html">⬅ Back to Dashboard</a>
+<div class="info">
+🛠️ <strong>About this provider:</strong><br>
+Professional home repair services for customers who need reliable help with repairs and maintenance around the home.
+</div>
+
+
+<a href="add-request.html">
+
+<button>
+📩 Request This Service
+</button>
+
+</a>
+
+
+<a href="providers-home-repairs.html">
+
+<button class="secondary">
+⬅ Back to Providers
+</button>
+
+</a>
 
 </div>
 
-<script>
+<a class="back" href="home-repairs.html">
+⬅ Back to Home Repairs
+</a>
 
-document.getElementById("businessName").textContent =
-localStorage.getItem("velixBusinessName") || "Not set";
-
-document.getElementById("ownerName").textContent =
-localStorage.getItem("velixOwnerName") || "Not set";
-
-document.getElementById("phone").textContent =
-localStorage.getItem("velixPhone") || "Not set";
-
-document.getElementById("email").textContent =
-localStorage.getItem("velixEmail") || "Not set";
-
-document.getElementById("location").textContent =
-localStorage.getItem("velixLocation") || "Not set";
-
-</script>
+</div>
 
 </body>
 </html>
