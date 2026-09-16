@@ -1,136 +1,307 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <title>Leave a Review - Velix</title>
 
 <style>
+
 body{
 font-family:Arial,sans-serif;
 background:#f8fafc;
 margin:0;
-text-align:center;
+padding:20px;
 }
 
-header{
+.container{
+max-width:700px;
+margin:auto;
+}
+
+.header{
 background:#0f172a;
 color:white;
-padding:40px;
+padding:30px 20px;
+border-radius:15px;
+text-align:center;
 }
 
 .card{
 background:white;
-max-width:600px;
-margin:20px auto;
-padding:20px;
+padding:25px;
+margin-top:20px;
 border-radius:15px;
-box-shadow:0 3px 10px rgba(0,0,0,.1);
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
-input, textarea, select{
-width:90%;
-padding:12px;
-margin:10px 0;
-border:1px solid #ccc;
-border-radius:8px;
-font-size:16px;
+.provider{
+background:#eff6ff;
+border:1px solid #bfdbfe;
+padding:15px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+label{
+display:block;
+margin-top:18px;
+font-weight:bold;
+color:#334155;
+}
+
+select,
+textarea{
+width:100%;
 box-sizing:border-box;
+padding:12px;
+margin-top:8px;
+border:1px solid #cbd5e1;
+border-radius:8px;
+font-size:15px;
 }
 
 textarea{
-height:120px;
-resize:none;
+height:130px;
+resize:vertical;
 }
 
 button{
-padding:12px 25px;
-background:#2563eb;
+width:100%;
+padding:13px;
+margin-top:20px;
+background:#7c3aed;
 color:white;
 border:none;
 border-radius:8px;
 font-size:16px;
-font-weight:bold;
 cursor:pointer;
 }
 
-a{
+.secondary{
+background:#e2e8f0;
+color:#0f172a;
+}
+
+.back{
 display:block;
+text-align:center;
 margin-top:20px;
-text-decoration:none;
 color:#2563eb;
 font-weight:bold;
+text-decoration:none;
 }
+
 </style>
 
 </head>
 
+
 <body>
 
-<header>
+<div class="container">
+
+
+<div class="header">
+
 <h1>⭐ Leave a Review</h1>
-<p>Tell us about your experience with a Velix provider.</p>
-</header>
 
-<div class="card">
-
-<input type="text" id="customerName" placeholder="Your Name">
-
-<input type="text" id="providerName" placeholder="Provider Name">
-
-<select id="rating">
-<option value="">Select Rating</option>
-<option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
-<option value="4">⭐⭐⭐⭐ 4 Stars</option>
-<option value="3">⭐⭐⭐ 3 Stars</option>
-<option value="2">⭐⭐ 2 Stars</option>
-<option value="1">⭐ 1 Star</option>
-</select>
-
-<textarea id="reviewMessage" placeholder="Write your review"></textarea>
-
-<br><br>
-
-<button onclick="saveReview()">⭐ Submit Review</button>
-
-<a href="reviews.html">⬅ Back to Reviews</a>
+<p>Share your experience with this provider.</p>
 
 </div>
 
+
+<div class="card">
+
+
+<div class="provider">
+
+<h3>👷 Service Provider</h3>
+
+<p id="providerName">
+Loading provider...
+</p>
+
+<p id="serviceName">
+Loading service...
+</p>
+
+</div>
+
+
+<form onsubmit="submitReview(event)">
+
+
+<label for="rating">
+Your Rating
+</label>
+
+<select id="rating" required>
+
+<option value="">
+Select a rating
+</option>
+
+<option value="5">
+⭐⭐⭐⭐⭐ — Excellent
+</option>
+
+<option value="4">
+⭐⭐⭐⭐ — Very Good
+</option>
+
+<option value="3">
+⭐⭐⭐ — Good
+</option>
+
+<option value="2">
+⭐⭐ — Fair
+</option>
+
+<option value="1">
+⭐ — Poor
+</option>
+
+</select>
+
+
+<label for="review">
+Your Review
+</label>
+
+<textarea
+id="review"
+placeholder="Tell us about your experience..."
+required
+></textarea>
+
+
+<button type="submit">
+
+⭐ Submit Review
+
+</button>
+
+
+</form>
+
+
+<a href="my-requests.html">
+
+<button class="secondary">
+
+⬅ Back to My Requests
+
+</button>
+
+</a>
+
+
+</div>
+
+</div>
+
+
 <script>
 
-function saveReview(){
+function loadProvider(){
 
-const customerName =
-document.getElementById("customerName").value.trim();
+const savedRequest =
+localStorage.getItem("velixCustomerRequest");
 
-const providerName =
-document.getElementById("providerName").value.trim();
 
-const rating =
-document.getElementById("rating").value;
+if(!savedRequest){
 
-const reviewMessage =
-document.getElementById("reviewMessage").value.trim();
+document.getElementById("providerName").textContent =
+"No completed request found.";
 
-if(!customerName || !providerName || !rating || !reviewMessage){
-
-alert("⚠️ Please complete all fields before submitting.");
+document.getElementById("serviceName").textContent =
+"Please return to My Requests.";
 
 return;
 
 }
 
-localStorage.setItem("velixReviewCustomer", customerName);
-localStorage.setItem("velixReviewProvider", providerName);
-localStorage.setItem("velixReviewRating", rating);
-localStorage.setItem("velixReviewMessage", reviewMessage);
 
-alert("✅ Review submitted successfully!");
+const request =
+JSON.parse(savedRequest);
+
+
+document.getElementById("providerName").innerHTML =
+"👤 <strong>Provider:</strong> " + request.provider;
+
+
+document.getElementById("serviceName").innerHTML =
+"🔧 <strong>Service:</strong> " + request.service;
+
+}
+
+
+function submitReview(event){
+
+event.preventDefault();
+
+
+const savedRequest =
+localStorage.getItem("velixCustomerRequest");
+
+
+if(!savedRequest){
+
+alert("No completed service request found.");
+
+return;
+
+}
+
+
+const request =
+JSON.parse(savedRequest);
+
+
+if(request.status !== "Completed"){
+
+alert("You can only review a completed service.");
+
+return;
+
+}
+
+
+const review = {
+
+provider: request.provider,
+
+service: request.service,
+
+customer: request.name,
+
+rating: document.getElementById("rating").value,
+
+review: document.getElementById("review").value,
+
+date: new Date().toLocaleString()
+
+};
+
+
+localStorage.setItem(
+"velixProviderReview",
+JSON.stringify(review)
+);
+
+
+alert("Thank you! Your review has been submitted.");
 
 window.location.href = "reviews.html";
 
 }
 
+
+loadProvider();
+
 </script>
 
 </body>
+
 </html>
