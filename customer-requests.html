@@ -56,9 +56,32 @@ margin:10px 0;
 display:inline-block;
 padding:7px 12px;
 border-radius:20px;
+font-weight:bold;
+}
+
+.pending{
 background:#fef3c7;
 color:#92400e;
-font-weight:bold;
+}
+
+.accepted{
+background:#dcfce7;
+color:#166534;
+}
+
+.progress{
+background:#dbeafe;
+color:#1e40af;
+}
+
+.completed{
+background:#e0e7ff;
+color:#3730a3;
+}
+
+.declined{
+background:#fee2e2;
+color:#991b1b;
 }
 
 button{
@@ -81,9 +104,14 @@ background:#dc2626;
 color:white;
 }
 
-.dashboard{
-background:#e2e8f0;
-color:#0f172a;
+.start{
+background:#2563eb;
+color:white;
+}
+
+.complete{
+background:#7c3aed;
+color:white;
 }
 
 .back{
@@ -136,14 +164,17 @@ color:#64748b;
 
 function loadRequests(){
 
-const savedRequest = localStorage.getItem("velixCustomerRequest");
+const savedRequest =
+localStorage.getItem("velixCustomerRequest");
 
-const requestsDiv = document.getElementById("requests");
+const requestsDiv =
+document.getElementById("requests");
 
 
 if(!savedRequest){
 
 requestsDiv.innerHTML = `
+
 <div class="empty">
 
 <h2>No customer requests yet</h2>
@@ -154,6 +185,7 @@ their requests will appear here.
 </p>
 
 </div>
+
 `;
 
 return;
@@ -161,12 +193,83 @@ return;
 }
 
 
-const request = JSON.parse(savedRequest);
+const request =
+JSON.parse(savedRequest);
+
+
+let statusClass = "pending";
+
+if(request.status === "Accepted"){
+statusClass = "accepted";
+}
+
+if(request.status === "In Progress"){
+statusClass = "progress";
+}
+
+if(request.status === "Completed"){
+statusClass = "completed";
+}
+
+if(request.status === "Declined"){
+statusClass = "declined";
+}
+
+
+let actionButtons = "";
+
+
+if(request.status === "Pending"){
+
+actionButtons = `
+
+<button class="accept"
+onclick="acceptRequest()">
+✅ Accept Request
+</button>
+
+<button class="decline"
+onclick="declineRequest()">
+❌ Decline Request
+</button>
+
+`;
+
+}
+
+
+if(request.status === "Accepted"){
+
+actionButtons = `
+
+<button class="start"
+onclick="startService()">
+▶️ Start Service
+</button>
+
+`;
+
+}
+
+
+if(request.status === "In Progress"){
+
+actionButtons = `
+
+<button class="complete"
+onclick="completeService()">
+✅ Mark as Completed
+</button>
+
+`;
+
+
+}
 
 
 requestsDiv.innerHTML = `
 
-<h2>New Service Request</h2>
+<h2>Service Request</h2>
 
 <div class="request">
 
@@ -208,18 +311,16 @@ ${request.date}
 </p>
 
 <p>
-<span class="status">
+
+<strong>Status:</strong><br><br>
+
+<span class="status ${statusClass}">
 ${request.status}
 </span>
+
 </p>
 
-<button class="accept" onclick="acceptRequest()">
-✅ Accept Request
-</button>
-
-<button class="decline" onclick="declineRequest()">
-❌ Decline Request
-</button>
+${actionButtons}
 
 </div>
 
@@ -228,16 +329,17 @@ ${request.status}
 }
 
 
-function acceptRequest(){
+function updateRequestStatus(newStatus){
 
 const savedRequest =
 localStorage.getItem("velixCustomerRequest");
 
 if(savedRequest){
 
-const request = JSON.parse(savedRequest);
+const request =
+JSON.parse(savedRequest);
 
-request.status = "Accepted";
+request.status = newStatus;
 
 localStorage.setItem(
 "velixCustomerRequest",
@@ -246,34 +348,43 @@ JSON.stringify(request)
 
 }
 
-alert("Request accepted successfully.");
-
 loadRequests();
+
+}
+
+
+function acceptRequest(){
+
+updateRequestStatus("Accepted");
+
+alert("Request accepted successfully.");
 
 }
 
 
 function declineRequest(){
 
-const savedRequest =
-localStorage.getItem("velixCustomerRequest");
-
-if(savedRequest){
-
-const request = JSON.parse(savedRequest);
-
-request.status = "Declined";
-
-localStorage.setItem(
-"velixCustomerRequest",
-JSON.stringify(request)
-);
-
-}
+updateRequestStatus("Declined");
 
 alert("Request declined.");
 
-loadRequests();
+}
+
+
+function startService(){
+
+updateRequestStatus("In Progress");
+
+alert("Service has been started.");
+
+}
+
+
+function completeService(){
+
+updateRequestStatus("Completed");
+
+alert("Service has been marked as completed.");
 
 }
 
