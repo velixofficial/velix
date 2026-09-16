@@ -69,15 +69,34 @@ background:#dcfce7;
 color:#166534;
 }
 
+.progress{
+background:#dbeafe;
+color:#1e40af;
+}
+
+.completed{
+background:#e0e7ff;
+color:#3730a3;
+}
+
 .declined{
 background:#fee2e2;
 color:#991b1b;
 }
 
-.empty{
+.review{
+display:block;
+width:100%;
+box-sizing:border-box;
+padding:13px;
+margin-top:20px;
+background:#7c3aed;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
 text-align:center;
-padding:30px 10px;
-color:#64748b;
+text-decoration:none;
 }
 
 button{
@@ -92,6 +111,12 @@ font-size:16px;
 cursor:pointer;
 }
 
+.empty{
+text-align:center;
+padding:30px 10px;
+color:#64748b;
+}
+
 </style>
 
 </head>
@@ -100,6 +125,7 @@ cursor:pointer;
 <body>
 
 <div class="container">
+
 
 <div class="header">
 
@@ -118,8 +144,11 @@ cursor:pointer;
 
 
 <button onclick="window.location.href='start.html'">
+
 ⬅ Back to Velix
+
 </button>
+
 
 </div>
 
@@ -168,8 +197,36 @@ statusClass = "accepted";
 }
 
 
+if(request.status === "In Progress"){
+statusClass = "progress";
+}
+
+
+if(request.status === "Completed"){
+statusClass = "completed";
+}
+
+
 if(request.status === "Declined"){
 statusClass = "declined";
+}
+
+
+let reviewButton = "";
+
+
+if(request.status === "Completed"){
+
+reviewButton = `
+
+<a class="review" href="add-review.html">
+
+⭐ Leave a Review
+
+</a>
+
+`;
+
 }
 
 
@@ -179,40 +236,67 @@ requestsDiv.innerHTML = `
 
 <div class="request">
 
+
 <p class="info">
+
 👷 <strong>Provider:</strong><br>
+
 ${request.provider}
+
 </p>
 
+
 <p class="info">
+
 🔧 <strong>Service:</strong><br>
+
 ${request.service}
+
 </p>
 
+
 <p class="info">
+
 📝 <strong>Request:</strong><br>
+
 ${request.description}
+
 </p>
 
+
 <p class="info">
+
 📍 <strong>Location:</strong><br>
+
 ${request.location}
+
 </p>
 
+
 <p class="info">
+
 📅 <strong>Date:</strong><br>
+
 ${request.date}
+
 </p>
+
 
 <p class="info">
 
 <strong>Status:</strong><br><br>
 
 <span class="status ${statusClass}">
+
 ${request.status}
+
 </span>
 
 </p>
+
+
+${reviewButton}
+
 
 </div>
 
