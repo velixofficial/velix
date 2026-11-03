@@ -154,159 +154,58 @@ color:#64748b;
 
 
 <script>
+function sendRequest(event) {
+    event.preventDefault();
 
-function loadRequest(){
+    const request = {
+        id: Date.now().toString(),
+        provider: "Velix Home Repairs Provider",
+        service: document.getElementById("service").value,
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        description: document.getElementById("description").value,
+        location: document.getElementById("location").value,
+        status: "Pending",
+        date: new Date().toLocaleString()
+    };
 
-const savedRequest =
-localStorage.getItem("velixCustomerRequest");
+    let requests = [];
 
-const requestsDiv =
-document.getElementById("requests");
+    try {
+        requests = JSON.parse(
+            localStorage.getItem("velixCustomerRequests")
+        ) || [];
 
+        if (!Array.isArray(requests)) requests = [];
+    } catch (error) {
+        requests = [];
+    }
 
-if(!savedRequest){
+    // Keep any older request already saved by the previous version.
+    const oldRequest = localStorage.getItem("velixCustomerRequest");
 
-requestsDiv.innerHTML = `
+    if (oldRequest) {
+        try {
+            const previous = JSON.parse(oldRequest);
 
-<div class="empty">
+            if (previous && !requests.some(r => r.id === previous.id)) {
+                previous.id = previous.id || Date.now().toString();
+                requests.push(previous);
+            }
+        } catch (error) {}
+    }
 
-<h2>No Requests Yet</h2>
+    requests.push(request);
 
-<p>
-Your service requests will appear here.
-</p>
+    localStorage.setItem(
+        "velixCustomerRequests",
+        JSON.stringify(requests)
+    );
 
-</div>
+    alert("Your request has been saved successfully!");
 
-`;
-
-return;
-
+    window.location.href = "my-requests.html";
 }
-
-
-const request =
-JSON.parse(savedRequest);
-
-
-let statusClass = "pending";
-
-
-if(request.status === "Accepted"){
-statusClass = "accepted";
-}
-
-
-if(request.status === "In Progress"){
-statusClass = "progress";
-}
-
-
-if(request.status === "Completed"){
-statusClass = "completed";
-}
-
-
-if(request.status === "Declined"){
-statusClass = "declined";
-}
-
-
-let reviewButton = "";
-
-
-if(request.status === "Completed"){
-
-reviewButton = `
-
-<a class="review" href="add-review.html">
-
-⭐ Leave a Review
-
-</a>
-
-`;
-
-}
-
-
-requestsDiv.innerHTML = `
-
-<h2>Service Request</h2>
-
-<div class="request">
-
-
-<p class="info">
-
-👷 <strong>Provider:</strong><br>
-
-${request.provider}
-
-</p>
-
-
-<p class="info">
-
-🔧 <strong>Service:</strong><br>
-
-${request.service}
-
-</p>
-
-
-<p class="info">
-
-📝 <strong>Request:</strong><br>
-
-${request.description}
-
-</p>
-
-
-<p class="info">
-
-📍 <strong>Location:</strong><br>
-
-${request.location}
-
-</p>
-
-
-<p class="info">
-
-📅 <strong>Date:</strong><br>
-
-${request.date}
-
-</p>
-
-
-<p class="info">
-
-<strong>Status:</strong><br><br>
-
-<span class="status ${statusClass}">
-
-${request.status}
-
-</span>
-
-</p>
-
-
-${reviewButton}
-
-
-</div>
-
-`;
-
-}
-
-
-loadRequest();
-
 </script>
 
 </body>
