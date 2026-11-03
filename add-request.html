@@ -204,34 +204,59 @@ required
 
 
 <script>
+function sendRequest(event) {
+    event.preventDefault();
 
-function sendRequest(event){
+    const request = {
+        id: Date.now().toString(),
+        provider: "Velix Home Repairs Provider",
+        service: document.getElementById("service").value,
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        description: document.getElementById("description").value,
+        location: document.getElementById("location").value,
+        status: "Pending",
+        date: new Date().toLocaleString()
+    };
 
-event.preventDefault();
+    let requests = [];
 
-const request = {
-    provider: "Velix Home Repairs Provider",
-    service: document.getElementById("service").value,
-    name: document.getElementById("name").value,
-    phone: document.getElementById("phone").value,
-    description: document.getElementById("description").value,
-    location: document.getElementById("location").value,
-    status: "Pending",
-    date: new Date().toLocaleString()
-};
+    try {
+        requests = JSON.parse(
+            localStorage.getItem("velixCustomerRequests")
+        ) || [];
 
-localStorage.setItem(
-    "velixCustomerRequest",
-    JSON.stringify(request)
-);
+        if (!Array.isArray(requests)) requests = [];
+    } catch (error) {
+        requests = [];
+    }
 
-alert("Your request has been sent to Velix Home Repairs Provider.");
-    
-window.location.href = "my-requests.html"; 
+    // Keep any older request already saved by the previous version.
+    const oldRequest = localStorage.getItem("velixCustomerRequest");
 
+    if (oldRequest) {
+        try {
+            const previous = JSON.parse(oldRequest);
+
+            if (previous && !requests.some(r => r.id === previous.id)) {
+                previous.id = previous.id || Date.now().toString();
+                requests.push(previous);
+            }
+        } catch (error) {}
+    }
+
+    requests.push(request);
+
+    localStorage.setItem(
+        "velixCustomerRequests",
+        JSON.stringify(requests)
+    );
+
+    alert("Your request has been saved successfully!");
+
+    window.location.href = "my-requests.html";
 }
-
-</script>
+</script>    
 
 </body>
 </html>
